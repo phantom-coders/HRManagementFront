@@ -1,11 +1,14 @@
 "use client";
 import { headerItems } from "@/constants/headerItems";
+import { getUserInfo } from "@/services/auth.service";
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Flex, Input, Layout, Menu, Row } from "antd";
 
 const { Header } = Layout;
 
 export default function AppBar() {
+  const { id } = getUserInfo();
+
   return (
     <Header>
       <Flex justify="space-between" align="center">
