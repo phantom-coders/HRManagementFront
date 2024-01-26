@@ -21,7 +21,7 @@ const RegisterForm = () => {
   const verifyToken = searchParams.get("secret");
   const router = useRouter();
   if (!email || !verifyToken) {
-    redirect("/verify-email");
+    redirect("/onboarding");
   }
   const onSubmit = async (data) => {
     try {

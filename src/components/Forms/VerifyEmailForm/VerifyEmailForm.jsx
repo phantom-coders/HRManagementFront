@@ -13,12 +13,11 @@ export default function VerifyEmailForm() {
   const onSubmit = async (data) => {
     try {
       const res = await verifyEmail({ ...data }).unwrap();
-
       if (res?.statusCode === 200) {
         message.success("Mail Sent. Please Check your mail");
       }
     } catch (err) {
-      message.error(err?.data?.message);
+      message.error("User already registered");
     }
   };
   return (
@@ -38,7 +37,7 @@ export default function VerifyEmailForm() {
             margin: "10px 0px",
           }}
         >
-          First Verify your Email
+          First verify your email
         </h1>
 
         <Form submitHandler={onSubmit}>
