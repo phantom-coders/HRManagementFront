@@ -31,14 +31,14 @@ export const sidebarItems = (role) => {
       icon: <TeamOutlined />,
     },
     {
+      label: <Link href={`/dashboard/calender`}>Calender</Link>,
+      key: "calender",
+      icon: <CalendarOutlined />,
+    },
+    {
       label: "Message",
       key: "message",
       icon: <MessageOutlined />,
-    },
-    {
-      label: "Calender",
-      key: "calender",
-      icon: <CalendarOutlined />,
     },
     {
       label: "RECRUITMENT",
