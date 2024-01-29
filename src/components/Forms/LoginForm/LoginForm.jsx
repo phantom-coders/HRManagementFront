@@ -1,17 +1,29 @@
 "use client";
-import { Button, Col, Input, Row } from "antd";
+import { Button, Col, Input, Row, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import loginImage from "../../../assets/login-image.png";
 import Image from "next/image";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import Link from "next/link";
+import { useLoginUserMutation } from "@/redux/api/authApi";
+import { storeUserInfo } from "@/services/auth.service";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
-  const onSubmit = (data) => {
+  const router = useRouter();
+  const [userLogin] = useLoginUserMutation();
+  const onSubmit = async (data) => {
     try {
-      console.log(data);
-    } catch (err) {}
+      const res = await userLogin({ ...data }).unwrap();
+
+      if (res?.data?.token) {
+        router.push("/dashboard/overview");
+        message.success("User logged in successfully!");
+      }
+      storeUserInfo({ token: res?.data?.token });
+    } catch (err) {
+      message.error(err?.data?.message);
+    }
   };
   return (
     <Row
@@ -37,10 +49,10 @@ const LoginForm = () => {
             <div>
               <FormInput
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                name="id"
+                name="email"
                 type="text"
                 size="large"
-                label="Email or User Id"
+                label="Email"
               />
             </div>
             <div
@@ -56,14 +68,7 @@ const LoginForm = () => {
                 label="User Password"
               />
             </div>
-            <p
-              style={{
-                margin: "15px 0px",
-              }}
-            >
-              If you do not have an account, first{" "}
-              <Link href={`/register`}>Register</Link>
-            </p>
+
             <Button type="primary" htmlType="submit">
               Login
             </Button>
