@@ -1,5 +1,5 @@
 "use client";
-import { Button, Col, Input, Row, Typography } from "antd";
+import { Button, Col, Input, Row, Typography, message } from "antd";
 import {
   LockOutlined,
   UserOutlined,
@@ -10,12 +10,38 @@ import Image from "next/image";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import Link from "next/link";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useCreateUserMutation } from "@/redux/api/authApi";
+import { storeUserInfo } from "@/services/auth.service";
 
 const RegisterForm = () => {
-  const onSubmit = (data) => {
+  const [createUser] = useCreateUserMutation();
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+  const verifyToken = searchParams.get("secret");
+  const router = useRouter();
+  if (!email || !verifyToken) {
+    redirect("/onboarding");
+  }
+  const onSubmit = async (data) => {
     try {
-      console.log(data);
-    } catch (err) {}
+      const user = {
+        name: data?.name,
+        password: data?.password,
+        email,
+        verifyToken,
+      };
+      const res = await createUser({ ...user }).unwrap();
+
+      if (res?.data?.token) {
+        router.push("/dashboard/overview");
+        message.success("User Created successfully!");
+      }
+
+      storeUserInfo({ token: res?.data?.token });
+    } catch (err) {
+      message.error(err?.data?.message);
+    }
   };
   return (
     <Row
@@ -58,6 +84,8 @@ const RegisterForm = () => {
                 type="email"
                 size="large"
                 label="Email"
+                disabled={true}
+                value={email}
               />
             </div>
             <div
@@ -71,6 +99,20 @@ const RegisterForm = () => {
                 type="password"
                 size="large"
                 label="Password"
+              />
+            </div>
+            <div
+              style={{
+                margin: "15px 0px",
+              }}
+            >
+              <FormInput
+                name="verifyToken"
+                type="text"
+                size="large"
+                label="Secret"
+                disabled={true}
+                value={verifyToken}
               />
             </div>
             <p

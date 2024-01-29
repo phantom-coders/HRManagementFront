@@ -13,6 +13,8 @@ const FormInput = ({
   validation,
   label,
   prefix,
+  defaultValue,
+  disabled,
 }) => {
   const { control } = useFormContext();
 
@@ -29,6 +31,8 @@ const FormInput = ({
               size={size}
               prefix={prefix}
               placeholder={placeholder}
+              defaultValue={defaultValue}
+              disabled={disabled}
               {...field}
               value={value ? value : field.value}
             />
@@ -37,6 +41,8 @@ const FormInput = ({
               type={type}
               size={size}
               prefix={prefix}
+              defaultValue={defaultValue}
+              disabled={disabled}
               placeholder={placeholder}
               {...field}
               value={value ? value : field.value}
