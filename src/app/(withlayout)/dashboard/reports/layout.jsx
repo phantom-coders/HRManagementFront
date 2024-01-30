@@ -1,24 +1,22 @@
 import Contents from "@/components/UI/Contents";
-import AppBar from "@/components/UI/Header";
 import Sidebar from "@/components/UI/Sidebar";
+import { reportPageItems } from "@/constants/reportsPageItems";
 import { USER_ROLE } from "@/constants/role";
-import { sidebarItems } from "@/constants/sidebarItems";
 import { Layout } from "antd";
+import React from "react";
 
-const DashboardLayout = ({ children }) => {
+export default function layout({ children }) {
   const role = USER_ROLE.SUPER_ADMIN;
   return (
     <>
-      <AppBar />
       <Layout hasSider>
         <Sidebar
-          collapsible={true}
-          className={"bg-primary"}
-          items={sidebarItems(role)}
+          collapsible={false}
+          className={"bg-transparent"}
+          items={reportPageItems(role)}
         />
         <Contents>{children}</Contents>
       </Layout>
     </>
   );
-};
-export default DashboardLayout;
+}

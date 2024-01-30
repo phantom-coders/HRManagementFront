@@ -69,7 +69,7 @@ export const sidebarItems = (role) => {
       icon: <FileTextOutlined />,
     },
     {
-      label: "Reports",
+      label: <Link href={`/dashboard/reports`}>Reports</Link>,
       key: "reports",
       icon: <BarChartOutlined />,
     },
