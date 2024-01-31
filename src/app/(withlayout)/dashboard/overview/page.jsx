@@ -1,7 +1,7 @@
 import { LineCharts } from "@/components/UI/LineChart";
-import TableCard from "@/components/UI/Table";
 import { overviewItems } from "@/constants/overviewItems";
-import { Card, Col, Empty, Row, Space } from "antd";
+import { tableItemsProps } from "@/constants/tableItemsProps";
+import { Card, Col, Empty, Row, Space, Table } from "antd";
 import React from "react";
 
 export default function Overview() {
@@ -85,7 +85,10 @@ export default function Overview() {
         >
           List of Team Member
         </h2>
-        <TableCard />
+        <Table
+          columns={tableItemsProps.columns}
+          dataSource={tableItemsProps.data}
+        />
       </div>
     </Space>
   );

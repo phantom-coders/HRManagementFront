@@ -16,7 +16,7 @@ export const overviewItems = [
     count: 0,
   },
   {
-    title: "Pending on CV or Resume",
+    title: "Pending on Resume",
     count: 5,
   },
 ];

@@ -32,13 +32,7 @@ export default function VerifyEmailForm() {
         <Image src={loginImage} width={500} alt="login image" />
       </Col>
       <Col sm={12} md={8} lg={8}>
-        <h1
-          style={{
-            margin: "10px 0px",
-          }}
-        >
-          First verify your email
-        </h1>
+        <p className="my-3 text-xl">First verify your email</p>
 
         <Form submitHandler={onSubmit}>
           {" "}

@@ -1,6 +1,5 @@
 "use client";
 import { Layout } from "antd";
-import AppBar from "./Header";
 
 const { Content } = Layout;
 
@@ -12,8 +11,6 @@ const Contents = ({ children }) => {
         color: "black",
       }}
     >
-      <AppBar />
-
       <div
         style={{
           padding: "10px",
